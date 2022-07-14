@@ -12,8 +12,6 @@ var RangeSlider = (props) => {
         setRangePrice(newValue)
       };
 
-    console.log(value)
-
     return <div className="m-3">
         <div className="my-2 flex flex-rơw justify-between">Lớn nhất: 
             <div className={`text-${colors.primary}`}>
@@ -37,6 +35,7 @@ var RangeSlider = (props) => {
             value={rangePrice.length === 0 ? value : rangePrice}
             onChange={handleChange}
             valueLabelDisplay="auto"
+            step={10000}
         />
     </div>
 }
