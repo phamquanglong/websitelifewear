@@ -25,7 +25,7 @@ var ProductsList = (props) => {
             <div className="flex mx-52">
                 <div className="flex flex-1"></div>
                 <div className={`hover:text-${colors.primary} cursor-pointer my-5 text-xl w-fit`}
-                onClick={() => navigate('/Categories', {state: {productsList: productsList.products.data, name: productsList.name, id: id}})}>Xem thêm</div>
+                onClick={() => navigate(`/Categories/${id}`, {state: {name: productsList.name, id: id}})}>Xem thêm</div>
             </div>
             <div className="flex justify-evenly mx-40">
                 {productsList.products.data.map((item, index) => index < 5 && <ProductItem item={item}/>)}

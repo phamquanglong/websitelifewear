@@ -57,7 +57,7 @@ export var filter = (size, color, rangePrice, order, setDataList, id) => {
   });
 }
 
-export var getCategories = (setCategories) => {
+export var getCategories = (setCategories, setCategoriesOld) => {
   const options = {
     method: 'GET',
     url: `${domain}/api/categories`,
@@ -67,6 +67,7 @@ export var getCategories = (setCategories) => {
   axios.request(options).then(function (response) {
     console.log(response.data)
     setCategories(response.data)
+    setCategoriesOld(response.data)
   }).catch(function (error) {
     console.error(error);
   });

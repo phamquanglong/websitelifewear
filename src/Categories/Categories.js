@@ -3,19 +3,20 @@ import Menu from "../components/Menu/Menu"
 import ProductItem from "../components/Products/ProductItem"
 import Footer from '../components/Footer'
 import FilterItem from "./FilterItem"
-import { useState } from "react"
-import { filter } from "../Data"
+import { useEffect, useState } from "react"
+import { filter, getProducts } from "../Data"
 import { colors } from "../colors"
 
 var Categories = (props) => {
     var { state } = useLocation()
-    var { productsList, name, id } = state
+    var { name, id } = state
 
-    var [dataList, setDataList] = useState(productsList)
+    var [dataList, setDataList] = useState([])
     var [size, setSize] = useState("")
     var [rangePrice, setRangePrice] = useState([])
     var [color, setColor] = useState("")
     var [order, setOrder] = useState("")
+    var [isLoading, setIsLoading] = useState(true)
 
     var [sizes, setSizes] = useState([
         {
@@ -82,6 +83,10 @@ var Categories = (props) => {
         }
     ])
 
+    useEffect(() => {
+        getProducts(setDataList, setIsLoading, id)
+    }, [id])
+
     return <div>
         <Menu />
         <div className="text-3xl text-center my-10">Danh mục thời trang {name}</div>
@@ -96,8 +101,8 @@ var Categories = (props) => {
                     filter(size, color, rangePrice, order, setDataList, id)
                 }}>Lọc sản phẩm</button>
             </div>
-            {dataList.length !== 0 ? <div className="flex flex-row flex-wrap justify-evenly max-w-6xl">
-                {dataList.map(item => <ProductItem item={item} margin={true}/>)}
+            {isLoading === false && dataList.length !== 0 ? <div className="flex flex-row flex-wrap justify-evenly max-w-6xl">
+                {dataList.products.data.map(item => <ProductItem item={item} margin={true}/>)}
             </div> : <div className="flex flex-1 mt-32 justify-center">Không có sản phẩm nào</div>}
         </div>
 

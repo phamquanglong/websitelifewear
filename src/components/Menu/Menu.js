@@ -6,16 +6,17 @@ import { useState, useEffect } from "react"
 
 var Menu = (props) => {
     var [categories, setCategories] = useState([])
+    var [categoriesOld, setCategoriesOld] = useState([])
 
     useEffect(() => {
-        getCategories(setCategories)
+        getCategories(setCategories, setCategoriesOld)
     }, [])
 
     return <div className="flex flex-row justify-evenly">
+        <MenuItem text={"Danh mục"} url={"Categories"} categories={categories} setCategories={setCategories} categoriesOld={categoriesOld}/>
         <MenuItem text={"Yêu thích"} url={"Wishlist"}/>
-        <MenuItem text={"Giới thiệu"} url={"About"}/>
         <MenuItem text={"Lifewear"} url={""}/>
-        <MenuItem text={"Danh mục"} url={"Categories"} categories={categories}/>
+        <MenuItem text={"Giới thiệu"} url={"About"}/>
         <div className="flex flex-row items-end width-full items-center">
             <AccountBtn />
             <SearchBtn />
