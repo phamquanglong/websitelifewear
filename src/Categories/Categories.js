@@ -6,6 +6,7 @@ import FilterItem from "./FilterItem"
 import { useEffect, useState } from "react"
 import { filter, getProducts } from "../Data"
 import { colors } from "../colors"
+import ReactLoading from 'react-loading';
 
 var Categories = (props) => {
     var { state } = useLocation()
@@ -89,7 +90,7 @@ var Categories = (props) => {
 
     return <div>
         <Menu />
-        <div className="text-3xl text-center my-10">Danh mục thời trang {name}</div>
+        <div className="text-3xl text-center mt-32 mb-20">Danh mục thời trang {name}</div>
         <div className="flex flex-row mx-40">
             <div className="flex flex-1 w-full ml-20 flex-col max-w-xs mb-10">
                 <FilterItem data={sizes} name="Kích cỡ" setValue={setSize} setData={setSizes}/>
@@ -101,9 +102,12 @@ var Categories = (props) => {
                     filter(size, color, rangePrice, order, setDataList, id)
                 }}>Lọc sản phẩm</button>
             </div>
-            {isLoading === false && dataList.length !== 0 ? <div className="flex flex-row flex-wrap justify-evenly max-w-6xl">
+            {isLoading === false ? (dataList.length !== 0 ? <div className="flex flex-row flex-wrap justify-evenly max-w-6xl mx-10">
                 {dataList.products.data.map(item => <ProductItem item={item} margin={true}/>)}
-            </div> : <div className="flex flex-1 mt-32 justify-center">Không có sản phẩm nào</div>}
+            </div> : <div className="flex flex-1 mt-32 justify-center">Không có sản phẩm nào</div>)
+            : <div className="flex flex-1 justify-center">
+                <ReactLoading type='balls' color='black' height={'5%'} width={'5%'}/>
+            </div>}
         </div>
 
         <Footer />

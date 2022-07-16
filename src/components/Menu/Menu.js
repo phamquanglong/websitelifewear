@@ -12,7 +12,7 @@ var Menu = (props) => {
         getCategories(setCategories, setCategoriesOld)
     }, [])
 
-    return <div className="flex flex-row justify-evenly">
+    return <div className="flex flex-row justify-evenly fixed w-full z-10 bg-white top-0">
         <MenuItem text={"Danh mục"} url={"Categories"} categories={categories} setCategories={setCategories} categoriesOld={categoriesOld}/>
         <MenuItem text={"Yêu thích"} url={"Wishlist"}/>
         <MenuItem text={"Lifewear"} url={""}/>

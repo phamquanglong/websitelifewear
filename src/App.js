@@ -8,9 +8,7 @@ import { getBanner, getProducts } from "./Data";
 var App = () => {
 
   return <div>
-      <div className="fixed w-full z-10 bg-white top-0">
-        <Menu />
-      </div>
+      <Menu />
       
       <div className="mt-20">
         <Slider />

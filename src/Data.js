@@ -50,7 +50,6 @@ export var filter = (size, color, rangePrice, order, setDataList, id) => {
   };
   
   axios.request(options).then(function (response) {
-    console.log(response.data)
     setDataList(response.data.products.data)
   }).catch(function (error) {
     console.error(error);
@@ -65,9 +64,24 @@ export var getCategories = (setCategories, setCategoriesOld) => {
   };
   
   axios.request(options).then(function (response) {
-    console.log(response.data)
     setCategories(response.data)
     setCategoriesOld(response.data)
+  }).catch(function (error) {
+    console.error(error);
+  });
+}
+
+export var getSearch = (value, setProductsList, setIsLoading) => {
+  const options = {
+    method: 'GET',
+    url: `${domain}/api/products/search`,
+    params: {q: value},
+    headers: {'Content-Type': 'application/json', Accept: 'application/json'}
+  };
+  
+  axios.request(options).then(function (response) {
+    setProductsList(response.data)
+    setIsLoading(false)
   }).catch(function (error) {
     console.error(error);
   });

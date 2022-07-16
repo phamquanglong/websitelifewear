@@ -9,6 +9,7 @@ import Categories from './Categories/Categories';
 import './index.css';
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
+import Search from './Search';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,6 +22,7 @@ root.render(
         <Route path='/Login' element={<Login />}/>
         <Route path='/Register' element={<Register />}/>
         <Route path={`/Categories`} element={<Categories />}/>
+        <Route path={`/Search`} element={<Search />}/>
       </Routes>
     </BrowserRouter>
   // </React.StrictMode>
