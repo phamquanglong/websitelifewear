@@ -1,8 +1,10 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 var ProductItem = (props) => {
     var { item, margin } = props
     var [isVisible, setIsVisible] = useState(false)
+    var navigate = useNavigate()
     var mg = margin ? 'mx-1.5 mb-20' : ''
 
     // console.log(item)
@@ -10,6 +12,9 @@ var ProductItem = (props) => {
     style={{
         backgroundImage: `url("${item.cover}")`,
         minWidth: 280
+    }}
+    onClick={() => {
+        navigate('/Details', {state: {id: item.id}})
     }}
     onMouseEnter={() => setIsVisible(true)} onMouseLeave={() => setIsVisible(false)}>
 

@@ -86,6 +86,7 @@ var Categories = (props) => {
 
     useEffect(() => {
         getProducts(setDataList, setIsLoading, id)
+        window.scrollTo(0, 0)
     }, [id])
 
     return <div>

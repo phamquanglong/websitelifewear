@@ -10,6 +10,7 @@ import './index.css';
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import Search from './Search';
+import ProductDetails from './ProductDetails/ProductDetails';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,6 +24,7 @@ root.render(
         <Route path='/Register' element={<Register />}/>
         <Route path={`/Categories`} element={<Categories />}/>
         <Route path={`/Search`} element={<Search />}/>
+        <Route path={`/Details`} element={<ProductDetails />}/>
       </Routes>
     </BrowserRouter>
   // </React.StrictMode>

@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { colors } from "../../colors"
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 
 var CategoriesDiv = (props) => {
     var { categories, setIsVisible, setCategories, categoriesOld } = props
@@ -28,7 +29,6 @@ var CategoriesDiv = (props) => {
                     })
 
                     setCategories(cloneCategories)
-                    console.log(cloneCategories)
                 }} onMouseLeave={() => {
                     // setChildrenVisible(false)
                     var cloneCategories = categoriesOld.map(item => {
@@ -51,7 +51,6 @@ var CategoriesDiv = (props) => {
                     
                     {i.childrenVisible === true && <div className={`z-10 bg-white shadow-md rounded-xl absolute left-80 max-w-xl ${i.children.length > 5 ? 'flex flex-wrap' : ''}`}>
                         {i.children.map(item => <div onClick={() => {
-                            console.log(item)
                             navigate('/Categories', {state: {name: item.name, id: item.id}})
                         }}>
                             <p className={`hover:text-white p-5 hover:rounded-md hover:bg-${colors.primary} cursor-pointer`}>{item.name}</p>

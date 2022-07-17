@@ -86,3 +86,35 @@ export var getSearch = (value, setProductsList, setIsLoading) => {
     console.error(error);
   });
 }
+
+export var getDetails = (id, setDetails, setIsLoading) => {
+  const options = {
+    method: 'GET',
+    url: `${domain}/api/products/${id}`,
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    }
+  };
+  
+  axios.request(options).then(function (response) {
+    setDetails(response.data)
+    setIsLoading(false)
+  }).catch(function (error) {
+    console.error(error);
+  });
+}
+
+export var getReviews = (id, setReviews, setIsLoading) => {
+  const options = {
+    method: 'GET',
+    url: `${domain}/api/products/${id}/reviews`,
+  };
+  
+  axios.request(options).then(function (response) {
+    setReviews(response.data)
+    setIsLoading(false)
+  }).catch(function (error) {
+    console.error(error);
+  });
+}
