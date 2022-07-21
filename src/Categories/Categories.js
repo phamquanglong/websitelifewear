@@ -103,14 +103,13 @@ var Categories = (props) => {
                     filter(size, color, rangePrice, order, setDataList, id)
                 }}>Lọc sản phẩm</button>
             </div>
-            {isLoading === false ? (dataList.length !== 0 ? <div className="flex flex-row flex-wrap justify-evenly max-w-6xl mx-10">
+            {isLoading === false ? (dataList.length !== 0 ? <div className="flex flex-row flex-wrap justify-start max-w-6xl mx-10">
                 {dataList.products.data.map(item => <ProductItem item={item} margin={true}/>)}
             </div> : <div className="flex flex-1 mt-32 justify-center">Không có sản phẩm nào</div>)
             : <div className="flex flex-1 justify-center">
                 <ReactLoading type='balls' color='black' height={'5%'} width={'5%'}/>
             </div>}
         </div>
-
         <Footer />
     </div>
 }

@@ -10,7 +10,7 @@ var CategoriesDiv = (props) => {
     var navigate = useNavigate()
 
     return <>
-        <div className={`absolute top-16 left-32 w-screen`} onMouseEnter={() => setIsVisible(true)} onMouseLeave={() => setIsVisible(false)}>
+        <div className={`absolute top-16 left-1/3 w-screen`} onMouseEnter={() => setIsVisible(true)} onMouseLeave={() => setIsVisible(false)}>
             <div className="rounded-md bg-white shadow-md w-fit">
                 {categories.map(i => 
                 <div className="flex flex-row"
@@ -44,7 +44,7 @@ var CategoriesDiv = (props) => {
                     setCategories(cloneCategories)
                 }}>
                     <div onClick={() => navigate('/Categories', {state: {name: i.name, id: i.id}})}
-                    className={`flex items-center hover:bg-${colors.primary} w-80 cursor-pointer hover:rounded-md p-5 hover:text-white justify-between`}>
+                    className={`flex items-center hover:bg-${colors.hover} w-80 cursor-pointer hover:rounded-md p-5 justify-between`}>
                         <p>{i.name}</p>
                         <FontAwesomeIcon icon={faArrowRight}/>
                     </div>
@@ -53,7 +53,7 @@ var CategoriesDiv = (props) => {
                         {i.children.map(item => <div onClick={() => {
                             navigate('/Categories', {state: {name: item.name, id: item.id}})
                         }}>
-                            <p className={`hover:text-white p-5 hover:rounded-md hover:bg-${colors.primary} cursor-pointer`}>{item.name}</p>
+                            <p className={`p-5 hover:rounded-md hover:bg-${colors.hover} cursor-pointer`}>{item.name}</p>
                         </div>)}
                     </div>}
                 </div>)}

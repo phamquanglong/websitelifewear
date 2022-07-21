@@ -27,6 +27,9 @@ var ProductDetails = (props) => {
 
     useEffect(() => {
         getDetails(id, setDetails, setIsLoading)
+        setColor('')
+        setSize('')
+        setQuantity(1)
     }, [id])
 
     console.log(details)
@@ -61,8 +64,9 @@ var ProductDetails = (props) => {
                             <Options options={details.options.sizes} text="Kích cỡ" value={size} setValue={setSize}/>
                             <p className='mb-5 flex'>Số lượng:
                                 <p className={`text-${colors.primary} font-bold ml-5`}>({color.length > 0 && size.length > 0 
-                                ? `${details.variants.filter(i => i.color.name === color && i.size.name === size)[0].quantity} sản phẩm`
-                                : '0 sản phẩm'})</p>
+                                && details.variants.filter(i => i.color.name === color && i.size.name === size).length > 0
+                                ? `${details.variants.filter(i => i.color.name === color && i.size.name === size)[0].quantity} sản phẩm có sẵn`
+                                : '0 sản phẩm có sẵn'})</p>
                             </p>
                             <Quantity quantity={quantity} setQuantity={setQuantity}/>
                         </div>

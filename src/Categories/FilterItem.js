@@ -62,7 +62,7 @@ var FilterItem = (props) => {
     }
 
     return <div className="bg-gray-200 rounded-md w-full h-fit p-2 mb-5">
-        <div className="bg-sky-400 p-3 h-fit w-full rounded-md text-white justify-between flex items-center" onClick={() => setIsVisible(!isVisible)}>
+        <div className="bg-slate-600 p-3 h-fit w-full rounded-md text-white justify-between flex items-center" onClick={() => setIsVisible(!isVisible)}>
             {name}
             <FontAwesomeIcon icon={isVisible ? faArrowUp : faArrowDown}/>
         </div>

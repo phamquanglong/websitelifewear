@@ -24,7 +24,7 @@ var SwiperImages = (props) => {
         modules={[Navigation, A11y]}
         navigation
         spaceBetween={50}
-        slidesPerView={4}
+        slidesPerView={images.length < 4 ? images.length : 4}
       >
         {images.map(item => <SwiperSlide>
           <div className={`${images.filter(i => i.image === imageView).length > 0 && images.filter(i => i.image === imageView)[0].image === item.image ? `border-4 border-${colors.primary}` : 'opacity-50'}

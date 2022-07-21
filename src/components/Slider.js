@@ -14,11 +14,11 @@ var Slider = (props) => {
     return <>
         {isLoading === false ? <div className="flex justify-center relative">
             <SimpleImageSlider
-                width={'80%'}
-                height={800}
+                width={'100%'}
+                height={870}
                 images={images}
                 showBullets={true}
-                showNavs={true}
+                // showNavs={true}
                 autoPlay={true}
                 loop
                 style={{

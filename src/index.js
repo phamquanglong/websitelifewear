@@ -11,10 +11,15 @@ import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import Search from './Search';
 import ProductDetails from './ProductDetails/ProductDetails';
+import {Provider} from 'react-redux';
+import rootReducer from './Store/reducers'
+import {createStore} from '@reduxjs/toolkit';
+
+const store = createStore(rootReducer);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
+  <Provider store={store}>
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />}/>
@@ -27,7 +32,7 @@ root.render(
         <Route path={`/Details`} element={<ProductDetails />}/>
       </Routes>
     </BrowserRouter>
-  // </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

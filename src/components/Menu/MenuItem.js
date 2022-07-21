@@ -9,11 +9,11 @@ var MenuItem = (props) => {
 
     var [isVisible, setIsVisible] = useState(false)
 
-    var setText = text === 'Lifewear' ? '3xl font-bold' : 'xl'
+    var setText = text === 'Lifewear' ? 'text-3xl font-bold' : 'font-bold'
     var navigate = useNavigate()
 
     return <>
-        <div className={`p-5 text-${setText} items-center relative hover:text-${colors.primary} cursor-pointer`} onClick={() => navigate(`/${url}`)}
+        <div className={`p-5 ${setText} items-center relative hover:text-${colors.primary} cursor-pointer flex justify-center`} onClick={() => navigate(`/${url}`)}
         onMouseEnter={() => {
             if (text === "Danh mục"){
                 setIsVisible(true)

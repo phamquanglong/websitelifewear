@@ -118,3 +118,82 @@ export var getReviews = (id, setReviews, setIsLoading) => {
     console.error(error);
   });
 }
+
+// API Login
+export var login = (email, password, navigate) => {
+  const options = {
+    method: 'POST',
+    url: `${domain}/api/admin/login`,
+    headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
+    data: {email: email, password: password, device_name: 'Window'}
+  };
+  
+  axios.request(options).then(function (response) {
+    localStorage.setItem("token", response.data.token)
+  }).then(() => navigate('/'))
+  .catch(function (error) {
+    console.error(error.response.data);
+    alert('Mật khẩu hoặc địa chỉ email không chính xác, Vui lòng nhập lại')
+  });
+}
+
+export var getInfo = (token, setInfo) => {
+  const options = {
+    method: 'GET',
+    url: `${domain}/api/user`,
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token
+    }
+  };
+  
+  axios.request(options).then(function (response) {
+    setInfo(response.data)
+  }).catch(function (error) {
+    console.error(error.response.data);
+  });
+}
+
+
+// API Register
+export var register = (first_name, last_name, email, password, gender) => {
+  const options = {
+    method: 'POST',
+    url: `${domain}/api/register`,
+    headers: {'Content-Type': 'application/json', Accept: 'application/json'},
+    data: {
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      password: password,
+      gender: gender === 'Nam' ? true : false
+    }
+  };
+  
+  axios.request(options).then(function (response) {
+    console.log(response.data);
+  }).catch(function (error) {
+    console.error(error);
+  });
+}
+
+
+// API Wishlist
+export var addToWishlist = (token) => {
+  const options = {
+    method: 'POST',
+    url: `${domain}/api/user/cart`,
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    data: {product_variant_id: 64084076, quantity: 100}
+  };
+  
+  axios.request(options).then(function (response) {
+    console.log(response.data);
+  }).catch(function (error) {
+    console.error(error);
+  });
+}

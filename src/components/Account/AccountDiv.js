@@ -6,12 +6,12 @@ var AccountDiv = (props) => {
     var navigate = useNavigate()
 
     return <>
-        <div className="absolute flex flex-row top-16 shadow-lg rounded-lg items-center z-10 bg-white"
+        <div className="absolute flex flex-row top-16 right-20 shadow-lg rounded-lg items-center z-10 bg-white"
         onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)}>
-            <div className={`p-5 hover:text-sky-400 cursor-pointer`}
+            <div className={`p-5 hover:text-${colors.primary} cursor-pointer`}
             onClick={() => navigate('/Login')}>Đăng nhập</div>
             <div>|</div>
-            <div className={`p-5 hover:text-sky-400 cursor-pointer`}
+            <div className={`p-5 hover:text-${colors.primary} cursor-pointer`}
             onClick={() => navigate('/Register')}>Đăng ký</div>
         </div>
     </>
