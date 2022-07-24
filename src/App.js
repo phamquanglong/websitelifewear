@@ -2,22 +2,24 @@ import Menu from "./components/Menu/Menu";
 import Slider from "./components/Slider";
 import ProductsList from "./components/Products/ProductsList";
 import Footer from "./components/Footer";
+import { memo } from "react";
 
 var App = () => {
+  return (
+    <div>
+      <Menu />
 
-  return <div>
-  <Menu />
-  
-  <div className="mt-20">
-    <Slider />
+      <div className="mt-20">
+        <Slider />
 
-    <ProductsList id={1}/>
-    <ProductsList id={6}/>
-    <ProductsList id={20}/>
-  </div>
+        <ProductsList id={1} />
+        <ProductsList id={6} />
+        <ProductsList id={20} />
+      </div>
 
-  <Footer />
-</div>
-}
+      <Footer />
+    </div>
+  );
+};
 
-export default App;
+export default memo(App);
