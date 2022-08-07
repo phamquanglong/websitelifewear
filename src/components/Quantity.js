@@ -1,13 +1,22 @@
 import { colors } from "../colors";
 
 var Quantity = (props) => {
-  var { quantity, setQuantity } = props;
+  var { quantity, setQuantity, updateQuantity } = props;
+
+  let update = (num) => {
+    setQuantity(num);
+    updateQuantity(num);
+  };
 
   return (
-    <div className="flex items-center rounded-full border w-fit">
+    <div className="flex items-center rounded-full border w-fit h-fit">
       <button
         className={`p-2 bg-gray-200 px-4 rounded-l-full hover:text-${colors.primary}`}
-        onClick={() => setQuantity(quantity + 1)}
+        onClick={() =>
+          updateQuantity === undefined
+            ? setQuantity(quantity + 1)
+            : update(quantity + 1)
+        }
       >
         +
       </button>
@@ -19,7 +28,11 @@ var Quantity = (props) => {
       <button
         className={`p-2 bg-gray-200 px-4 rounded-r-full hover:text-${colors.primary}`}
         disabled={quantity <= 1}
-        onClick={() => setQuantity(quantity - 1)}
+        onClick={() =>
+          updateQuantity === undefined
+            ? setQuantity(quantity - 1)
+            : update(quantity - 1)
+        }
       >
         -
       </button>

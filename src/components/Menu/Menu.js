@@ -1,10 +1,10 @@
 import MenuItem from "./MenuItem";
 import SearchBtn from "../SearchBtn";
-import { getCart, getCategories, getWishlist } from "../../Data";
+import { getCategories } from "../../Data";
 import { useState, useEffect, memo } from "react";
 import { getInfo } from "../../Data";
-import { useDispatch, useSelector } from "react-redux";
-import { setcartCount, setInfo, setWishlistCount } from "../../Store/actions";
+import { useDispatch } from "react-redux";
+import { setInfo } from "../../Store/actions";
 import lifewear from "../../img/lifewear.jpg";
 import MenuBtn from "../MenuBtn";
 import { useNavigate } from "react-router-dom";
@@ -14,10 +14,6 @@ import {
   faHeart,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  cartCountSelector,
-  wishlistCountSelector,
-} from "../../Store/selectors";
 
 var Menu = (props) => {
   var [categories, setCategories] = useState([]);
@@ -29,17 +25,6 @@ var Menu = (props) => {
     dispatchRedux(setInfo(info));
   };
 
-  var dispatchWishlistCount = (data) => {
-    dispatchRedux(setWishlistCount(data));
-  };
-
-  var dispatchCart = (data) => {
-    dispatchRedux(setcartCount(data));
-  };
-
-  var cart = useSelector(cartCountSelector);
-  console.log(cart);
-
   var token = localStorage.getItem("token");
 
   var navigate = useNavigate();
@@ -49,15 +34,10 @@ var Menu = (props) => {
   useEffect(() => {
     getCategories(setCategories, setCategoriesOld);
     token !== null && getInfo(token, dispatchHandler);
-    getWishlist(token, dispatchWishlistCount);
-    // token !== null
-    //   ? getCart(token, dispatchCart)
-    //   : dispatchCart(JSON.parse(localStorage.getItem("cart")));
-    getCart(token, dispatchCart);
   }, []);
 
   return (
-    <div className="justify-between fixed w-full z-10 top-0">
+    <div className="justify-between fixed w-full z-20 top-0">
       <div className="flex flex-row justify-between bg-white top-0">
         <div className="items-center flex" style={{ width: 180 }}>
           <SearchBtn />

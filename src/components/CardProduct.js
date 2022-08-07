@@ -23,25 +23,11 @@ var CardProduct = (props) => {
     dispatchRedux(setcartCount(data));
   };
 
-  var [quantity, setQuantity] = useState(Number(product.cart_quantity));
-
   var navigate = useNavigate();
 
   var cart = useSelector(cartCountSelector);
 
   var deleteFn = () => {
-    // localStorage.setItem(
-    //   "cart",
-    //   JSON.stringify(
-    //     cart.filter(
-    //       (item) =>
-    //         item.id !== product.id ||
-    //         (item.id === product.id &&
-    //           (item.color.name !== product.color.name ||
-    //             item.size.name !== product.size.name))
-    //     )
-    //   )
-    // );
     dispatchCart(
       cart.filter(
         (item) =>
@@ -64,7 +50,7 @@ var CardProduct = (props) => {
       ></button>
       <div className="flex flex-col h-32">
         <LinesEllipsis
-          className="w-72"
+          className="w-72 px-2 h-10"
           text={product.name}
           maxLine="2"
           ellipsis="..."
@@ -87,7 +73,7 @@ var CardProduct = (props) => {
         </div>
 
         {type !== "wishlist" && (
-          <div className="flex mt-3 justify-between">
+          <div className="flex mt-3 justify-between items-center">
             <div className="flex items-center">
               <p
                 className={`px-4 py-2 h-fit bg-${colors.primary} items-center flex text-white`}
@@ -98,33 +84,36 @@ var CardProduct = (props) => {
                 {product.size.name}
               </p>
             </div>
-            <Quantity quantity={quantity} setQuantity={setQuantity} />
+
+            <p className="text-gray-400">x{product.cart_quantity}</p>
           </div>
         )}
       </div>
 
-      <div className="justify-end flex">
-        <button
-          className="text-red-400 h-fit ml-10"
-          onClick={() =>
-            localStorage.getItem("token") !== null
-              ? type === "wishlist"
-                ? deleteWishlist(
-                    localStorage.getItem("token"),
-                    product.id,
-                    dispatchHandler
-                  )
-                : deleteCart(
-                    localStorage.getItem("token"),
-                    product.variant_id,
-                    dispatchCart
-                  )
-              : deleteFn()
-          }
-        >
-          <FontAwesomeIcon icon={faTrash} />
-        </button>
-      </div>
+      {type !== "payment" && (
+        <div className="justify-end flex">
+          <button
+            className="text-red-400 h-fit ml-10"
+            onClick={() =>
+              localStorage.getItem("token") !== null
+                ? type === "wishlist"
+                  ? deleteWishlist(
+                      localStorage.getItem("token"),
+                      product.id,
+                      dispatchHandler
+                    )
+                  : deleteCart(
+                      localStorage.getItem("token"),
+                      product.variant_id,
+                      dispatchCart
+                    )
+                : deleteFn()
+            }
+          >
+            <FontAwesomeIcon icon={faTrash} />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

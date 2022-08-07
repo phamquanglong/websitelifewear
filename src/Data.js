@@ -1,6 +1,6 @@
 import axios from "axios";
 
-var domain = "https://api.lifewear.mn07.xyz";
+var domain = "http://localhost:8000";
 
 export var getBanner = (setValue, setIsLoading) => {
   const options = { method: "GET", url: `${domain}/api/banners` };
@@ -145,7 +145,7 @@ export var getReviews = (id, setReviews, setIsLoading) => {
 export var login = (email, password, navigate) => {
   const options = {
     method: "POST",
-    url: `${domain}/api/admin/login`,
+    url: `${domain}/api/login`,
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     data: { email: email, password: password, device_name: "Window" },
   };
@@ -162,6 +162,7 @@ export var login = (email, password, navigate) => {
     });
 };
 
+// API Info
 export var getInfo = (token, setInfo) => {
   const options = {
     method: "GET",
@@ -182,8 +183,38 @@ export var getInfo = (token, setInfo) => {
     });
 };
 
+export let updateInfo = (token, value, setInfo, toast) => {
+  const options = {
+    method: "PATCH",
+    url: `${domain}/api/user`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    data: value,
+  };
+
+  axios
+    .request(options)
+    .then(function (response) {
+      setInfo(response.data);
+      alert("Cập nhật thành công!!!");
+    })
+    .catch(function (error) {
+      console.error(error.response.data);
+      alert(error.response.data.message);
+    });
+};
+
 // API Register
-export var register = (first_name, last_name, email, password, gender) => {
+export var register = (
+  first_name,
+  last_name,
+  email,
+  password,
+  gender,
+  navigate
+) => {
   const options = {
     method: "POST",
     url: `${domain}/api/register`,
@@ -201,9 +232,12 @@ export var register = (first_name, last_name, email, password, gender) => {
     .request(options)
     .then(function (response) {
       console.log(response.data);
+      alert("Đăng ký thành công!!!");
     })
+    .then(() => navigate("/Login"))
     .catch(function (error) {
       console.error(error.response.data);
+      alert(error.response.data.message);
     });
 };
 
@@ -330,10 +364,103 @@ export var getCart = (token, setCart) => {
   axios
     .request(options)
     .then(function (response) {
-      console.log(response.data);
       setCart(response.data);
     })
     .catch(function (error) {
       console.error(error.response.data);
+    });
+};
+
+export let updateQuantity = (token, id, quantity, setData) => {
+  const options = {
+    method: "PUT",
+    url: `${domain}/api/user/cart/${id}`,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: "Bearer " + token,
+    },
+    data: { quantity: quantity },
+  };
+
+  axios
+    .request(options)
+    .then(function (response) {
+      setData(response.data);
+    })
+    .catch(function (error) {
+      console.error(error.response.data);
+    });
+};
+
+// API Subdivisions
+export let getSubdivisions = (division_name, division_id, setData) => {
+  const options = {
+    method: "GET",
+    url: `${domain}/api/addresses/child_divisions`,
+    params: { division_name: division_name, division_id: division_id },
+  };
+
+  axios
+    .request(options)
+    .then(function (response) {
+      var arr = [];
+      response.data.map((item) =>
+        arr.push({
+          label: item.name,
+          id: item.id,
+        })
+      );
+      setData(arr);
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+};
+
+// API Upload Avatar
+export let uploadAvatar = (token, url) => {
+  const form = new FormData();
+  form.append("image", url);
+
+  const options = {
+    method: "POST",
+    url: `${domain}/api/user/avatar`,
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Accept: "application/json",
+      Authorization: "Bearer " + token,
+    },
+    data: form,
+  };
+
+  axios
+    .request(options)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.error(error.response.data);
+    });
+};
+
+// API Forget Password
+export let getResetCode = (email) => {
+  const options = {
+    method: "POST",
+    url: `${domain}/api/forgot`,
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    data: { email: email },
+  };
+
+  axios
+    .request(options)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.error(error.response.data);
+      error.response.data.errors !== undefined &&
+        alert(error.response.data.errors.email);
     });
 };

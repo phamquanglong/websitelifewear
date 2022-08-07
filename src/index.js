@@ -14,6 +14,10 @@ import ProductDetails from "./ProductDetails/ProductDetails";
 import { Provider } from "react-redux";
 import rootReducer from "./Store/reducers";
 import { createStore } from "@reduxjs/toolkit";
+import Info from "./Info/Info";
+import Payment from "./Payment/Payment";
+import OrderSuccess from "./Payment/OrderSuccess";
+import ForgetPassword from "./components/ForgetPassword";
 
 const store = createStore(rootReducer);
 
@@ -30,6 +34,10 @@ root.render(
         <Route path={`/Categories`} element={<Categories />} />
         <Route path={`/Search`} element={<Search />} />
         <Route path={`/Details`} element={<ProductDetails />} />
+        <Route path={`/Info`} element={<Info />} />
+        <Route path={`/Payment`} element={<Payment />} />
+        <Route path={`/OrderSuccess`} element={<OrderSuccess />} />
+        <Route path={`/ForgetPassword`} element={<ForgetPassword />} />
       </Routes>
     </BrowserRouter>
   </Provider>

@@ -9,6 +9,10 @@ import LinesEllipsis from "react-lines-ellipsis";
 import { addToWishlist } from "../../Data";
 import { useDispatch } from "react-redux";
 import { setWishlistCount } from "../../Store/actions";
+import { FacebookIcon, FacebookShareButton } from "react-share";
+import LazyLoad from "react-lazyload";
+import ReactLoading from "react-loading";
+import LazyloadDiv from "./LazyloadDiv";
 
 const styles = {
   fadeIn: {
@@ -36,18 +40,24 @@ var ProductItem = (props) => {
   return (
     <div className="flex flex-col items-center">
       <div className={`relative`}>
-        <div
-          className={`rounded-md shadow-xl h-80 ${mg} hover:cursor-pointer bg-cover relative`}
-          style={{
-            backgroundImage: `url("${item.cover}")`,
-            width: 250,
-          }}
-          onClick={() => {
-            navigate("/Details", { state: { id: item.id } });
-          }}
-          onMouseEnter={() => setIsVisible(true)}
-          onMouseLeave={() => setIsVisible(false)}
-        ></div>
+        <LazyLoad
+          key={item.id}
+          placeholder={<LazyloadDiv />}
+          offset={[-400, 400]}
+        >
+          <div
+            className={`rounded-md shadow-xl h-80 ${mg} hover:cursor-pointer bg-cover relative`}
+            style={{
+              backgroundImage: `url("${item.cover}")`,
+              width: 250,
+            }}
+            onClick={() => {
+              navigate("/Details", { state: { id: item.id } });
+            }}
+            onMouseEnter={() => setIsVisible(true)}
+            onMouseLeave={() => setIsVisible(false)}
+          ></div>
+        </LazyLoad>
         {isVisible === true && (
           <StyleRoot>
             <div
@@ -70,9 +80,16 @@ var ProductItem = (props) => {
               >
                 <FontAwesomeIcon icon={faHeart} />
               </button>
-              <button className="bg-white h-fit px-3 py-2 rounded-full m-2">
-                <FontAwesomeIcon icon={faPlusCircle} />
-              </button>
+
+              <FacebookShareButton
+                className="bg-white h-fit px-3 py-2 rounded-full m-2"
+                url={
+                  "https://www.topcv.vn/xem-cv/CVIKAVhQA10ACFAGWl1VVwFVVlECAVFWCV1RUA806c"
+                }
+                hashtag={"#Lifewear"}
+              >
+                <FacebookIcon size={40} round />
+              </FacebookShareButton>
             </div>
           </StyleRoot>
         )}

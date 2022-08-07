@@ -1,10 +1,13 @@
 import { faCartShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 import { colors } from "../colors";
 import CardProduct from "../components/CardProduct";
 
 var WishlistDiv = (props) => {
   var { setVisible, type, wishlist, cart } = props;
+
+  var navigate = useNavigate();
 
   var list = type === "wishlist" ? wishlist : cart;
   // localStorage.getItem("token") !== null
@@ -26,7 +29,7 @@ var WishlistDiv = (props) => {
           {list !== null && list.length > 0 ? (
             list.map((item) => <CardProduct product={item} type={type} />)
           ) : (
-            <div className="flex flex-col items-center mb-5">
+            <div className="flex flex-col items-center mb-5 w-96">
               <p className="text-6xl text-gray-600">
                 <FontAwesomeIcon
                   icon={type === "wishlist" ? faHeart : faCartShopping}
@@ -41,6 +44,16 @@ var WishlistDiv = (props) => {
         </div>
 
         <button
+          onClick={() => {
+            console.log({ w: wishlist, c: cart });
+            navigate("/Wishlist", {
+              state: {
+                type: type,
+                dataList: type === "wishlist" ? wishlist : cart,
+              },
+            });
+            setVisible(false);
+          }}
           className={`bg-${colors.primary} text-white px-5 py-4 rounded-md`}
         >
           {type === "wishlist"

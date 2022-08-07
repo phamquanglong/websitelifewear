@@ -1,5 +1,11 @@
 import { colors } from "../../colors";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSignature,
+  faSignInAlt,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 var AccountDiv = (props) => {
   var { setVisible } = props;
@@ -16,6 +22,7 @@ var AccountDiv = (props) => {
             setVisible("");
           }}
         >
+          <FontAwesomeIcon icon={faSignInAlt} className="mr-3" />
           Đăng nhập
         </div>
         <div>|</div>
@@ -26,6 +33,7 @@ var AccountDiv = (props) => {
             setVisible("");
           }}
         >
+          <FontAwesomeIcon icon={faSignature} className="mr-3" />
           Đăng ký
         </div>
       </div>

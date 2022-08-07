@@ -1,7 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { colors } from "../colors";
+import { getCart, getWishlist } from "../Data";
+import { setcartCount, setWishlistCount } from "../Store/actions";
 import { cartCountSelector, wishlistCountSelector } from "../Store/selectors";
 import WishlistDiv from "../Wishlist/WishistDiv";
 import AccountDiv from "./Account/AccountDiv";
@@ -13,12 +15,15 @@ var EachMenuBtn = (props) => {
   var token = localStorage.getItem("token");
 
   var count = (d) => {
-    if (d !== null) return d.length;
+    let cnt = 0;
+    d.map((i) => (cnt += Number(i.cart_quantity)));
+    if (d !== null)
+      return d.map((i) => i.cart_quantity === undefined)[0] ? d.length : cnt;
     else return 0;
   };
 
   var [num, setNum] = useState(0);
-  icon.iconName === "cart-shopping" && console.log(data);
+  // icon.iconName === "cart-shopping" && console.log(data);
 
   useEffect(() => {
     setNum(count(data));
@@ -73,8 +78,6 @@ var MenuBtn = (props) => {
   var wishlist = useSelector(wishlistCountSelector);
   var cart = useSelector(cartCountSelector);
 
-  // console.log(cart);
-
   var isChoose = (name) => {
     if (
       iconList.length > 0 &&
@@ -86,9 +89,22 @@ var MenuBtn = (props) => {
         : false;
   };
 
-  // useEffect(() => {
-  //   console.log(cart);
-  // }, [cart]);
+  var dispatchRedux = useDispatch();
+
+  var token = localStorage.getItem("token");
+
+  var dispatchWishlistCount = (data) => {
+    dispatchRedux(setWishlistCount(data));
+  };
+
+  var dispatchCart = (data) => {
+    dispatchRedux(setcartCount(data));
+  };
+
+  useEffect(() => {
+    getWishlist(token, dispatchWishlistCount);
+    getCart(token, dispatchCart);
+  }, []);
 
   return (
     <div className="flex">

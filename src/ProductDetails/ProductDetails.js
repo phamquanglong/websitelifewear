@@ -55,17 +55,6 @@ var ProductDetails = (props) => {
   };
 
   var addCart = () => {
-    // localStorage.getItem("token") !== null
-    //   ? addToCart(
-    //       localStorage.getItem("token"),
-    //       details.variants.filter(
-    //         (i) => i.color.name === color && i.size.name === size
-    //       )[0].id,
-    //       quantity,
-    //       dispatchHandle
-    //     )
-    //   : localStorage.setItem("cart", JSON.stringify(cart));
-
     if (
       cart.length !== 0 &&
       cart.filter(
@@ -115,7 +104,7 @@ var ProductDetails = (props) => {
         <div className="flex items-center flex-col">
           <div className="mt-32 flex flex-row flex-1 justify-center">
             <SwiperImages images={details.images} />
-            <div className="ml-20">
+            <div className="ml-10">
               <p className="text-2xl max-w-2xl">{details.name}</p>
 
               <div className="flex justify-between items-center my-5">

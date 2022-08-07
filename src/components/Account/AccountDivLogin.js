@@ -6,14 +6,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Popup from "reactjs-popup";
-import { setcartCount, setWishlistCount } from "../../Store/actions";
+import { setcartCount, setInfo, setWishlistCount } from "../../Store/actions";
 import { infoSelector } from "../../Store/selectors";
 import AccountBtnItem from "./AccountBtnItem";
 
 var AccountDivLogin = (props) => {
   var { setVisible } = props;
   var info = useSelector(infoSelector);
+
+  let navigate = useNavigate();
 
   var dispatchRedux = useDispatch();
   var dispatchCart = (data) => {
@@ -22,6 +25,10 @@ var AccountDivLogin = (props) => {
 
   var dispatchWishlist = (data) => {
     dispatchRedux(setWishlistCount(data));
+  };
+
+  let dispatchInfo = (data) => {
+    dispatchRedux(setInfo(data));
   };
 
   var [isOpen, setIsOpen] = useState(false);
@@ -37,14 +44,18 @@ var AccountDivLogin = (props) => {
               backgroundImage: `url(${
                 info.avatar !== null
                   ? info.avatar
-                  : "https://api.lifewear.mn07.xyz/storage/images/users/default-user.png"
+                  : "http://localhost:8000/storage/images/users/default-user.png"
               })`,
             }}
           ></div>
           <div>{info.full_name}</div>
         </div>
         <div className="bg-gray-200 flex h-0.5 mx-2"></div>
-        <AccountBtnItem icon={faInfoCircle} text="Thông tin cá nhân" />
+        <AccountBtnItem
+          icon={faInfoCircle}
+          text="Thông tin cá nhân"
+          onClick={() => navigate("/Info")}
+        />
         <AccountBtnItem icon={faBell} text="Thông báo" />
         <AccountBtnItem icon={faBasketShopping} text="Đơn mua" />
         <Popup
@@ -64,9 +75,9 @@ var AccountDivLogin = (props) => {
               <button
                 onClick={() => {
                   localStorage.removeItem("token");
-                  // localStorage.setItem("cart", JSON.stringify([]));
                   dispatchCart([]);
                   dispatchWishlist([]);
+                  dispatchInfo({});
                   setIsOpen(false);
                   setVisible(false);
                 }}

@@ -12,7 +12,7 @@ var LoginRequest = (props) => {
     <div className="absolute left-0">
       <div className="w-screen h-screen" onClick={() => setVisible("")}></div>
       <div
-        className={`absolute flex right-5 top-0 bg-white shadow-md p-5 flex-col rounded-md text-gray-600 items-center`}
+        className={`absolute flex right-5 top-0 bg-white shadow-md p-5 flex-col rounded-md text-gray-600 items-center w-96`}
       >
         <p className="text-6xl">
           <FontAwesomeIcon icon={faLock} />
