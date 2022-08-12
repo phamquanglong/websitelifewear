@@ -6,9 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftRotate } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { setPayment } from "../Store/actions";
+import { useContext } from "react";
+import { context } from "./Payment";
 
 let CartList = (props) => {
-  let list = useSelector(cartCountSelector);
+  let data = useContext(context);
   let payment = useSelector(paymentSelector);
 
   let dispatchRedux = useDispatch();
@@ -28,7 +30,7 @@ let CartList = (props) => {
 
   let totalPrice = () => {
     let a = 0;
-    list.map((item) => (a += Number(item.cart_quantity) * item.sale_price));
+    data.map((item) => (a += Number(item.cart_quantity) * item.sale_price));
     return a;
   };
 
@@ -44,13 +46,13 @@ let CartList = (props) => {
     <div className="bg-gray-100 p-3 rounded-md justify-between flex flex-col">
       <div>
         <p className="text-xl font-bold mb-4">
-          Đơn hàng ({count(list)} sản phẩm)
+          Đơn hàng ({count(data)} sản phẩm)
         </p>
         <div
           className="max-h-96 overflow-auto"
           // style={{ scrollbarWidth: "none" }}
         >
-          {list.map((item) => (
+          {data.map((item) => (
             <CardProduct product={item} type={"payment"} />
           ))}
         </div>
@@ -71,7 +73,7 @@ let CartList = (props) => {
             navigate("/Wishlist", {
               state: {
                 type: "",
-                dataList: list,
+                dataList: data,
               },
             })
           }

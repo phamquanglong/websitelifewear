@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 let LazyloadDiv = (props) => {
   let [arr, setArr] = useState([]);
 
-  useEffect(() => {}, [arr]);
+  // useEffect(() => {
+  //   setArr([1, 0.8, 0.6, 0.8, 1]);
+  //   setTimeout(() => setArr([], 1000));
+  // }, [arr]);
 
   return (
     <motion.div

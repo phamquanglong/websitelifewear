@@ -40,7 +40,9 @@ var EachMenuBtn = (props) => {
         }}
       >
         {icon.iconName !== "user" && num !== 0 && (
-          <div className="absolute bg-red-400 px-1.5 right-3 top-3 rounded-full text-sm">
+          <div
+            className={`absolute bg-${colors.primary} px-1.5 right-3 top-3 rounded-full text-sm text-white`}
+          >
             {num}
           </div>
         )}

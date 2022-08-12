@@ -15,6 +15,8 @@ var Wishlist = (props) => {
   var { type } = state.state;
   let navigate = useNavigate();
 
+  let list = useSelector(cartCountSelector);
+
   let data = useSelector(
     type !== "wishlist" ? cartCountSelector : wishlistCountSelector
   );
@@ -48,12 +50,20 @@ var Wishlist = (props) => {
           <div className="w-3/5 flex flex-col mr-10">
             <div className={` text-${colors.primary}`}>
               <div className="bg-gray-200 h-0.5"></div>
-              <div className="flex text-xl font-bold py-3 bg-gray-100">
-                <p className="w-1/2 ml-5">Sản phẩm</p>
-                <p className="w-1/5 text-center">Số lượng</p>
-                <p className="w-1/5 text-end pr-5">Đơn giá</p>
-                <p className="w-1/5 text-end pr-10">Tổng</p>
-              </div>
+              {type !== "wishlist" ? (
+                <div className="flex text-xl font-bold py-3 bg-gray-100">
+                  <p className="w-1/2 ml-5">Sản phẩm</p>
+                  <p className="w-1/5 text-center">Số lượng</p>
+                  <p className="w-1/5 text-end pr-5">Đơn giá</p>
+                  <p className="w-1/5 text-end pr-10">Tổng</p>
+                </div>
+              ) : (
+                <div className="flex text-xl font-bold py-3 bg-gray-100">
+                  <p className="w-1/2 ml-5">Sản phẩm</p>
+                  <p className="w-1/4 ml-52">Giá niêm yết</p>
+                  <p className="w-1/4 text-end pr-5">Giá khuyến mãi</p>
+                </div>
+              )}
               <div className="bg-gray-200 h-0.5 "></div>
             </div>
             <div className="items-center flex flex-col">
@@ -93,7 +103,9 @@ var Wishlist = (props) => {
                 </div>
                 <button
                   disabled={count(data) === 0}
-                  onClick={() => navigate("/Payment")}
+                  onClick={() =>
+                    navigate("/Payment", { state: { data: list } })
+                  }
                   className={`p-5 bg-${colors.primary} text-white rounded-md px-32`}
                 >
                   Thanh toán

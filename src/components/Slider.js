@@ -30,10 +30,10 @@ var Slider = (props) => {
             <StyleRoot style={styles.tada}>
               <div>
                 <p
-                  className="text-4xl text-white"
+                  className="text-4xl text-white uppercase"
                   style={{ textShadow: "2px 2px 5px black" }}
                 >
-                  Hàng mới/Bán chạy
+                  Hàng mới về
                 </p>
                 <button
                   onClick={() =>

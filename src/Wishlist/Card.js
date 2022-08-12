@@ -12,7 +12,7 @@ import { cartCountSelector } from "../Store/selectors";
 
 var Card = (props) => {
   var { product, line } = props;
-  var [quantity, setQuantity] = useState(Number(product.cart_quantity));
+  var [quantity, setQuantity] = useState();
 
   let navigate = useNavigate();
   let token = localStorage.getItem("token");
@@ -60,7 +60,8 @@ var Card = (props) => {
 
   useEffect(() => {
     console.log("card");
-  }, [cart]);
+    setQuantity(Number(product.cart_quantity));
+  }, [cart, quantity]);
 
   return (
     <div className="items-center flex flex-col w-full">
@@ -126,13 +127,20 @@ var Card = (props) => {
           />
         )}
         <p className={`text-xl`}>
-          {product.sale_price.toLocaleString("vi", {
-            style: "currency",
-            currency: "VND",
-          })}
+          {product.color !== undefined
+            ? product.sale_price.toLocaleString("vi", {
+                style: "currency",
+                currency: "VND",
+              })
+            : product.price.toLocaleString("vi", {
+                style: "currency",
+                currency: "VND",
+              })}
         </p>
         <p className={`text-xl text-${colors.primary} font-bold`}>
-          {(product.sale_price * quantity).toLocaleString("vi", {
+          {(
+            product.sale_price * (product.color !== undefined ? quantity : 1)
+          ).toLocaleString("vi", {
             style: "currency",
             currency: "VND",
           })}

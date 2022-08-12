@@ -80,6 +80,7 @@ var AccountDivLogin = (props) => {
                   dispatchInfo({});
                   setIsOpen(false);
                   setVisible(false);
+                  navigate("/");
                 }}
                 className="px-5 py-3 bg-red-400 rounded-md text-white"
               >

@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Menu from "../components/Menu/Menu";
 import { addToCart, addToWishlist, getDetails } from "../Data";
 import ReactLoading from "react-loading";
@@ -21,6 +21,8 @@ import { cartCountSelector } from "../Store/selectors";
 var ProductDetails = (props) => {
   var { state } = useLocation();
   var { id } = state;
+
+  let navigate = useNavigate();
 
   var [details, setDetails] = useState({});
   var [isLoading, setIsLoading] = useState(true);
@@ -46,11 +48,36 @@ var ProductDetails = (props) => {
     dispatchRedux(setWishlistCount(data));
   };
 
-  var validate = () => {
-    if (size === "" || color === "" || quantity < 1)
-      alert("Bạn cần chọn màu sắc, kích cỡ và số lượng trước");
+  var validate = (type) => {
+    if (size === "" || color === "") alert("Bạn cần chọn màu sắc, kích cỡ");
+    else if (
+      quantity >
+      details.variants.filter(
+        (i) => i.color.name === color && i.size.name === size
+      )[0].quantity
+    )
+      alert(
+        "Vui lòng chọn số lượng nhỏ hơn hoặc bằng số lượng sản phẩm có sẵn"
+      );
+    else if (quantity < 1 || isNaN(quantity)) alert("Số lượng phải lớn hơn 0");
     else {
-      addCart();
+      if (type === "Thêm vào giỏ hàng") addCart();
+      else
+        navigate("/Payment", {
+          state: {
+            data: [
+              {
+                ...details,
+                size: { name: size },
+                color: { name: color },
+                cart_quantity: quantity,
+                variant_id: details.variants.filter(
+                  (i) => i.color.name === color && i.size.name === size
+                )[0].id,
+              },
+            ],
+          },
+        });
     }
   };
 
@@ -102,9 +129,9 @@ var ProductDetails = (props) => {
         </div>
       ) : (
         <div className="flex items-center flex-col">
-          <div className="mt-32 flex flex-row flex-1 justify-center">
+          <div className="mt-32 flex flex-row flex-1 justify-center w-full">
             <SwiperImages images={details.images} />
-            <div className="ml-10">
+            <div className="ml-10 w-1/4">
               <p className="text-2xl max-w-2xl">{details.name}</p>
 
               <div className="flex justify-between items-center my-5">
@@ -171,6 +198,7 @@ var ProductDetails = (props) => {
 
             <div className="flex mx-10 flex-col">
               <button
+                onClick={() => validate("Mua hàng")}
                 className={`hover:bg-${colors.primary} hover:text-white border border-${colors.primary} py-3 px-24 text-2xl rounded-md text-${colors.primary}`}
               >
                 Mua hàng
@@ -178,7 +206,7 @@ var ProductDetails = (props) => {
               <div className="flex w-full items-center justify-center my-5">
                 <button
                   onClick={() => {
-                    validate();
+                    validate("Thêm vào giỏ hàng");
                     dispatchHandle(cart);
                     dispatchHandle(JSON.parse(localStorage.getItem("cart")));
                   }}
